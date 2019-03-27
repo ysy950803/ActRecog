@@ -7,6 +7,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.location.*
 import java.text.SimpleDateFormat
@@ -79,6 +80,8 @@ class MainActivity : AppCompatActivity() {
 //                }
 
         ActivityRecognitionClient(this).requestActivityUpdates(0, mPendingIntent)
+            .addOnSuccessListener { Log.d(TAG, "Recognition Api was successfully registered.") }
+            .addOnFailureListener { Log.d(TAG, "Recognition Api could not be registered: $it") }
     }
 
     private fun addTransition(list: ArrayList<ActivityTransition>, type: Int, enterOrExit: Boolean) {

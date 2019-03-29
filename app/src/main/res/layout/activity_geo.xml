@@ -4,16 +4,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/recog_btn"
+    <TextView
+        android:id="@+id/geo_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Recognition Demo" />
-
-    <Button
-        android:id="@+id/trans_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Transition Demo" />
+        android:gravity="center"
+        android:text="No data" />
 
 </LinearLayout>

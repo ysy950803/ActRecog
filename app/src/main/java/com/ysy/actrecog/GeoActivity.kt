@@ -77,13 +77,11 @@ class GeoActivity : AppCompatActivity() {
 
         @SuppressLint("SetTextI18n")
         override fun onReceive(context: Context?, intent: Intent?) {
-            Log.d(TAG, "onReceive")
-            val gI = GeofencingEvent.fromIntent(intent)
-            if (gI != null) {
-                mDataTextView.text = gI.hasError().toString() + "\n" +
-                    gI.errorCode.toString() + "\n" +
-                    gI.geofenceTransition.toString()
-            }
+            Log.d(TAG, "onReceive" + intent?.action)
+            val gI = GeofencingEvent.fromIntent(intent) ?: return
+            mDataTextView.text = gI.hasError().toString() + "\n" +
+                gI.errorCode.toString() + "\n" +
+                gI.geofenceTransition.toString()
         }
     }
 }

@@ -66,13 +66,13 @@ class TransActivity : AppCompatActivity() {
     inner class TransitionsReceiver : BroadcastReceiver() {
 
         override fun onReceive(context: Context?, intent: Intent?) {
-            Log.d(TAG, "onReceive")
+            Log.d(TAG, "onReceive" + intent?.action)
             if (ActivityTransitionResult.hasResult(intent)) {
-                val result = ActivityTransitionResult.extractResult(intent)
-                for (event in result!!.transitionEvents) {
+                val result = ActivityTransitionResult.extractResult(intent)?: return
+                for (event in result.transitionEvents) {
                     val actType = toActivityString(event.activityType)
                     val transType = toTransitionType(event.transitionType)
-                    mLogFragment.logView!!.println("Transition: $actType ($transType)   "
+                    mLogFragment.logView?.println("Transition: $actType ($transType)   "
                         + SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(Date()))
                 }
             }

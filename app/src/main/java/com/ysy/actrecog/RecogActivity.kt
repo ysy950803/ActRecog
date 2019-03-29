@@ -47,7 +47,6 @@ class RecogActivity : AppCompatActivity() {
     private fun registerRecog() {
         mRecogReceiver = RecogReceiver()
         registerReceiver(mRecogReceiver, IntentFilter(RECOG_RECEIVER_ACTION))
-        // 0 -> max speed
         ActivityRecognitionClient(this).requestActivityUpdates(0, mPendingIntent)
             .addOnSuccessListener { Log.d(TAG, "Recognition Api was successfully registered.") }
             .addOnFailureListener { Log.d(TAG, "Recognition Api could not be registered: $it") }
@@ -66,10 +65,10 @@ class RecogActivity : AppCompatActivity() {
     inner class RecogReceiver : BroadcastReceiver() {
 
         override fun onReceive(context: Context?, intent: Intent?) {
-            Log.d(TAG, "onReceive")
+            Log.d(TAG, "onReceive" + intent?.action)
             if (ActivityRecognitionResult.hasResult(intent)) {
                 val result = ActivityRecognitionResult.extractResult(intent)
-                mLogFragment.logView!!.println(
+                mLogFragment.logView?.println(
                     SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(Date()) + "\n"
                         + result.probableActivities.map {
                         val typeDes = when (it.type) {

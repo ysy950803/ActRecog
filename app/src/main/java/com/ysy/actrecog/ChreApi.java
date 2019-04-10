@@ -13,6 +13,7 @@ public class ChreApi {
             Class<?> ContextHubClient = Class.forName("android.hardware.location.ContextHubClient");
             Class<?> ContextHubInfo = Class.forName("android.hardware.location.ContextHubInfo");
             Class<?> NanoAppMessage = Class.forName("android.hardware.location.NanoAppMessage");
+            Class<?> IContextHubClient = Class.forName("android.hardware.location.IContextHubClient");
 
             Constructor<?> clientCons = ContextHubClient.getDeclaredConstructor(ContextHubInfo);
             clientCons.setAccessible(true);
@@ -22,6 +23,11 @@ public class ChreApi {
             Object info = ContextHubInfo.newInstance();
             Object client = clientCons.newInstance(info);
             Object msg = msgCons.newInstance(1, 1, new byte[]{1}, false);
+            Object iClient = IContextHubClient.newInstance();
+
+            Method setClientProxy = ContextHubClient.getDeclaredMethod("setClientProxy", IContextHubClient);
+            setClientProxy.setAccessible(true);
+            setClientProxy.invoke(client, iClient);
 
             Method sendMessageToNanoApp = ContextHubClient.getDeclaredMethod("sendMessageToNanoApp", NanoAppMessage);
             sendMessageToNanoApp.setAccessible(true);

@@ -19,22 +19,22 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
 
-        <!--<meta-data-->
-        <!--android:name="com.google.android.gms.version"-->
-        <!--android:value="@integer/google_play_services_version" />-->
+        <!-- <meta-data -->
+        <!-- android:name="com.google.android.gms.version" -->
+        <!-- android:value="@integer/google_play_services_version" /> -->
 
         <activity
             android:name=".MainActivity"
-            android:excludeFromRecents="true">
+            android:excludeFromRecents="false">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
 
                 <!-- hide launcher icon -->
-                <data
-                    android:host="ysy"
-                    android:scheme="actrecog" />
+                <!-- <data -->
+                <!-- android:host="ysy" -->
+                <!-- android:scheme="actrecog" /> -->
             </intent-filter>
         </activity>
 
@@ -43,6 +43,46 @@
         <activity android:name=".TransActivity" />
 
         <activity android:name=".GeoActivity" />
+
+        <activity
+            android:name=".ka.s.Main2Activity"
+            android:excludeFromRecents="false"
+            android:exported="true"
+            android:process=":server"
+            android:taskAffinity=".server" />
+
+        <activity
+            android:name=".ka.c.TransferActivity"
+            android:excludeFromRecents="true"
+            android:theme="@style/TransparentStyle">
+            <intent-filter>
+                <action android:name="com.ysy.actrecog.ka.c.TransferActivity.FROM_SELF" />
+                <action android:name="com.ysy.actrecog.ka.c.TransferActivity.FROM_OTHER" />
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name=".ka.c.LocalService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity
+            android:name=".ka.s.TransferActivity"
+            android:excludeFromRecents="true"
+            android:process=":server"
+            android:taskAffinity=".server"
+            android:theme="@style/TransparentStyle">
+            <intent-filter>
+                <action android:name="com.ysy.actrecog.ka.s.TransferActivity.FROM_SELF" />
+                <action android:name="com.ysy.actrecog.ka.s.TransferActivity.FROM_OTHER" />
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name=".ka.s.RemoteService"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":server" />
 
     </application>
 
